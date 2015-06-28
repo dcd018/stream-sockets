@@ -8,7 +8,12 @@ class Socket extends EventManager{
     /**
      * @var integer $max_read
      */
-    public $max_read = 1024;
+    public $max_read;
+
+    /**
+     * @var integer $read_type
+     */
+    public $read_type;
 
     /**
      * @var resource $sock
@@ -28,7 +33,7 @@ class Socket extends EventManager{
     /**
      * @var string $mode
      */
-    private $mode = '';
+    private $mode;
 
     /**
      * @var integer $domain
@@ -87,6 +92,10 @@ class Socket extends EventManager{
      */
     public function __construct($ip = null, $port = null, $domain = AF_INET, $type = SOCK_STREAM, $protocol = self::ICMP)
     {
+        $this->max_read = 1024;
+        $this->read_type = PHP_NORMAL_READ;
+        $this->mode = ''; 
+
         if (!is_null($ip) && !is_null($port)) {
             $this->ip = $ip;
             $this->port = $port;
@@ -276,7 +285,7 @@ class Socket extends EventManager{
      */
     public function read()
     {
-        return $this->exec('socket_read', array(&$this->sock, $this->max_read));
+        return $this->exec('socket_read', array(&$this->sock, $this->max_read, $this->read_type));
     }
 
     /**
