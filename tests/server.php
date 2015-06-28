@@ -5,10 +5,16 @@ use StreamSockets\Socket;
 use StreamSockets\Server;
 
 $socket = new Socket('127.0.0.1', 1234, AF_INET, SOCK_STREAM, SOL_TCP);
+
 // Maximum bytes to read from clients
 $socket->max_read = 1024;
 
+// Setting this to the named const PHP_BINARY_READ will configure the local side of 
+// client sockets to safely read binary data, defaults to PHP_NORMAL_READ
+$socket->read_type = PHP_NORMAL_READ;
+
 $server = new Server($socket);
+
 // Maxiumum allowed client connections
 $server->max_clients = 10;
 
