@@ -93,7 +93,7 @@ class Socket extends EventManager{
     public function __construct($ip = null, $port = null, $domain = AF_INET, $type = SOCK_STREAM, $protocol = self::ICMP)
     {
         $this->max_read = 1024;
-        $this->read_type = PHP_NORMAL_READ;
+        $this->read_type = PHP_BINARY_READ;
         $this->mode = ''; 
 
         if (!is_null($ip) && !is_null($port)) {

@@ -20,7 +20,7 @@ $socket->max_read = 1024;
 
 // Setting this to the named const PHP_BINARY_READ will configure the local side of 
 // client sockets to safely read binary data, defaults to PHP_NORMAL_READ
-$socket->read_type = PHP_NORMAL_READ;
+$socket->read_type = PHP_BINARY_READ;
 
 $server = new Server($socket);
 
