@@ -188,7 +188,7 @@ class Server extends EventManager {
     public function handleDisconnect(&$client)
     {
         $this->run('disconnect', array($client));
-        $client->destroy();
+        $client->close();
         unset($client);
     }
 
