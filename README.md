@@ -103,7 +103,7 @@ Success, input received by 127.0.0.1:1234
 
 ##Stability
 
-By default, sockets will use nonblocking I/O.  If there's not a client connecting, the accept() system call will detect if the operation would result in a block, caching the error describing why it can't complete the call without waiting.  These errors can be useful for gathering an idea of what's happening on the server.  To view these errors, simply add the following to either `connect` or `input` listeners.
+By default, sockets will use nonblocking I/O.  If there's not a client connecting, the accept() system call will detect if the operation would result in a block, caching the error describing why it can't complete the call without waiting.  These errors can be useful for gathering an idea of what's happening on the server.  To view these errors, add the following to either `connect` or `input` listeners.
 
 ```php
 $server->on('connect', function($server, $client, $input){
