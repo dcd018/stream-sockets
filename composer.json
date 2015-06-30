@@ -1,6 +1,6 @@
 {
     "name": "stream-sockets",
-    "description": "An experimental stream socket event loop written in PHP",
+    "description": "A stream socket event loop written in PHP",
     "autoload" : {
         "psr-0" : {
             "" : "src/"
