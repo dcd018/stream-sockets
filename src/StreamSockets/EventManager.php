@@ -72,10 +72,10 @@ class EventManager {
      */
     public function resetListeners($event = null)
     {
-        if ($event !== null) {
-            unset($this->listeners[$event]);
-        } else {
+        if (is_null($event)) {
             $this->listeners = array();
+        } else {
+            unset($this->listeners[$event]);
         }
     }
 

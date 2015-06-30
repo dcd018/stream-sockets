@@ -122,23 +122,35 @@ class Socket extends EventManager{
      */
     public function setSocket(&$sock)
     {
+        // If a socket resource hasn't been binded to the instance yet
         if (is_null($this->sock)) {
-            
             $this->sock = $sock;
             $this->accept();
             $this->nonblock();
-            
-            // NAT
-            if (socket_getpeername($this->sock, $ip, $port) !== false) {
-                $this->ip = $ip;
-                $this->port = $port;
-            }
+            $this->getOptions();
+        }
+    }
 
-            // Options
-            /*$tcp = socket_get_option($this->sock, SOL_TCP, SO_TYPE);
-            $udp = socket_get_option($this->sock, SOL_UDP, SO_TYPE);
-            $this->protocol = (!$tcp ? (!$udp ? self::ICMP : SOL_UDP) : SOL_TCP);
-            $this->type = (!$tcp ? (!$udp ? '' : $udp) : $tcp);*/
+    /**
+     * Gets NAT and protocol settings from the peer side of a client socket
+     */
+    private function getOptions()
+    {
+        if (socket_getpeername($this->sock, $ip, $port) !== false) {
+            $this->ip = $ip;
+            $this->port = $port;
+        }
+
+        if (false !== $type = $this->getOption()) {
+            $this->type = $type;
+        }
+
+        foreach (array_keys($this->protocols) as $proto) {
+            if (false !== $type = $this->getOption($proto)) {
+                $this->protocol = $proto;
+                unset($type);
+                break;
+            }
         }
     }
 
@@ -314,6 +326,19 @@ class Socket extends EventManager{
     public function select($read, $write = null, $except = null, $tv_sec = 0, $tv_usec = 0)
     {
         return $this->exec('socket_select', array(&$read, &$write, &$except, &$tv_sec, &$tv_usec));
+    }
+
+    /**
+     * Gets socket option for the socket
+     *
+     * @see http://php.net/manual/en/function.socket-get-option.php
+     * @param  integer $level   The protocol level at which the option resides
+     * @param  integer $optname The option's named constant
+     * @return boolean The value of the given option
+     */
+    public function getOption($level = SOL_SOCKET, $optname = SO_TYPE)
+    {
+        return $this->exec('socket_get_option', array(&$this->sock, $level, $optname));
     }
 
     /**
