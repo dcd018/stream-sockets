@@ -81,7 +81,7 @@ while ($line);
 socket_close($socket);
 ```
 
-By now the client's session should have recieved a buffer similar to:
+The client's session should have recieved a buffer similar to:
 ```
 $ php stream-sockets/tests/client.php
 
