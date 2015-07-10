@@ -1,15 +1,13 @@
 This package impliments an interface to PHP's socket communication functions based on the popular BSD sockets.  The main goal of this project is to provide an event driven abstraction layer which attempts to automate several low-level tasks such as dealing with switching between many different connected sockets and approaching events that would result in a block with non-blocking routines.
 
-######Listeners
+##Example server configuration
+####Listeners
 ```
 listen
 connect
 input
 disconnect
 ```
-
-##Example server configuration
-
 Start the server by running:
 ```
 $ php stream-sockets/tests/server.php
