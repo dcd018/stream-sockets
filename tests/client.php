@@ -13,12 +13,10 @@ $result = socket_connect($socket, $ip, $port);
 socket_write($socket, $data, strlen($data));
 
 // Read from server
-do 
-{
+do {
   $line =@socket_read($socket,2048);
   echo $line. "\n";
-} 
-while ($line);
+} while ($line);
 
 // Close the connection
 socket_close($socket);
