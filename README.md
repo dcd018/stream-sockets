@@ -1,7 +1,7 @@
 This package impliments an interface to PHP's socket communication functions based on the popular BSD sockets.  The main goal of this project is to provide an event driven abstraction layer which attempts to automate several low-level tasks such as dealing with switching between many different connected sockets and approaching events that would result in a block with non-blocking routines.
 
-##Example server configuration
-####Listeners
+### Example server configuration
+#### Listeners
 ```
 listen
 connect
@@ -47,7 +47,7 @@ $server->on('listen', function($server){
 })->keepAlive();
 ```
 
-##Connecting and sending data to the server
+#### Connecting and sending data to the server
 Be sure your local machine allows connections from your remote host's IP address if testing remotely.  Otherwise, in a different session, or from another machine on your local subnet run:
 ```
 $ php stream-sockets/tests/client.php
@@ -86,7 +86,7 @@ You are now connected to: 127.0.0.1:1234
 Success, input received by 127.0.0.1:1234
 ```
 
-##Stability
+#### Stability
 
 By default, sockets will use nonblocking I/O.  If there's not a client connecting, the accept() system call will detect if the operation would result in a block, caching the error describing why it can't complete the call without waiting.  These errors can be useful for gathering an idea of what's happening on the server.  To view these errors, add the following to either `connect` or `input` listeners.
 
